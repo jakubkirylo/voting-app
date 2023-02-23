@@ -1,13 +1,19 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { Voter } from 'src/app/models/voters';
-import { VotersActions, VotersActionTypes } from '../actions/voters.actions';
+import { Voter } from 'src/app/models/voter';
+import { VotersActions, VotersActionTypes } from '../actions/voter.actions';
 
-export interface State extends EntityState<Voter> {}
+export interface State {
+  voters: EntityState<Voter>;
+  loading: boolean;
+}
 const adapter: EntityAdapter<Voter> = createEntityAdapter<Voter>();
-const emptyState: State = adapter.getInitialState({});
+const emptyState: State = {
+  voters: adapter.getInitialState({}),
+  loading: false,
+};
 export const initialState: State = { ...emptyState };
 
-export function reducer(
+export function voterReducer(
   state: State = initialState,
   action: VotersActions
 ): State {
@@ -15,11 +21,14 @@ export function reducer(
     case VotersActionTypes.LoadVotersRequested: {
       return {
         ...state,
+        loading: true,
       };
     }
     case VotersActionTypes.LoadVotersSucceeded: {
       return {
         ...state,
+        voters: adapter.addMany(action.payload.voters, state.voters),
+        loading: false,
       };
     }
     default: {
@@ -29,10 +38,3 @@ export function reducer(
 }
 
 export const { selectAll, selectEntities } = adapter.getSelectors();
-
-// export const sortedUsersSelector: MemoizedSelector<
-//     EntityState<ManageableUser>,
-//     ManageableUser[]
-// > = createSelector(selectAll, items => {
-//     return R.sortBy((o: ManageableUser) => o.email, items);
-// });
