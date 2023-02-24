@@ -3,6 +3,7 @@ import * as fromCandidates from './candidates.reducer';
 import { ActionReducerMap, combineReducers } from '@ngrx/store';
 import { VotersActions } from '../actions/voter.actions';
 import { CandidatesActions } from '../actions/candidates.actions';
+import { VoteActions } from '../actions/vote-actions';
 
 export interface State {
   voters: fromVoters.State;
@@ -11,10 +12,10 @@ export interface State {
 
 export const reducers: ActionReducerMap<
   State,
-  VotersActions | CandidatesActions
+  VotersActions | CandidatesActions | VoteActions
 > = {
   voters: fromVoters.voterReducer,
-  candidates: fromCandidates.reducer,
+  candidates: fromCandidates.candidateReducer,
 };
 
 export const reducer = combineReducers(reducers);

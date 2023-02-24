@@ -7,10 +7,17 @@ import {
   LoadVotersRequested,
   VotersActionTypes,
 } from '../actions/voter.actions';
+import * as fromRoot from '../../store/reducers';
+import { select, Store } from '@ngrx/store';
+import { selectAll } from '../reducers/voters.reducer';
+import { takeFirst } from '../store.helpers';
 
 @Injectable()
 export class VotersEffects {
-  constructor(private actions$: Actions) {}
+  constructor(
+    private actions$: Actions,
+    private readonly _store: Store<fromRoot.State>
+  ) {}
 
   loadVotersRequested$ = createEffect(() =>
     this.actions$.pipe(
@@ -33,15 +40,24 @@ export class VotersEffects {
   addVoterRequested$ = createEffect(() =>
     this.actions$.pipe(
       ofType<AddVoterRequested>(VotersActionTypes.AddVoterRequested),
-      mergeMap((action: any) =>
-        of({ id: 3, name: action.payload.name }).pipe(
+      mergeMap((action: any) => {
+        // dummy code to get the last voter
+        var voters = this._store.pipe(
+          select((store) => store.voters.voters),
+          select(selectAll)
+        );
+        const lastVoter = takeFirst(voters).reduce((max, voter) =>
+          voter.id ? { ...voter } : max
+        );
+
+        return of({ id: lastVoter.id + 1, name: action.payload.name }).pipe(
           map((voter) => ({
             type: VotersActionTypes.AddVoterSucceeded,
-            payload: voter,
+            payload: { voter },
           })),
           catchError(() => of({ type: 'AddVoterFailed' }))
-        )
-      )
+        );
+      })
     )
   );
 }

@@ -18,7 +18,7 @@ export class LoadVotersSucceeded {
 
 export class AddVoterRequested {
   readonly type = VotersActionTypes.AddVoterRequested;
-  constructor(public payload: { voter: Voter }) {}
+  constructor(public payload: { name: string }) {}
 }
 
 export class AddVoterSucceeded {

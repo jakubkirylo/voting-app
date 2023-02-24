@@ -1,0 +1,24 @@
+.vote-container {
+  display: grid;
+  grid-template-columns: 20px 1fr 20px;
+  grid-template-rows: 1fr;
+  grid-template-areas: ". vote-content .";
+  color: #fff;
+}
+
+.vote-content {
+  grid-area: vote-content;
+}
+
+.vote-form-field {
+  margin: 0px 15px;
+}
+
+.vote-submit-btn {
+  height: 56px;
+}
+
+/* self-explanatory */
+.display-flex {
+  display: flex;
+}

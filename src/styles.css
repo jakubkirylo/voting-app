@@ -1,1 +1,71 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+/* #region fonts */
+
+* {
+  font-family: Lato, Source Sans Pro, Roboto, Arial, Helvetica, sans-serif;
+}
+
+.header-title {
+  font: 700 32px Lato, sans-serif;
+}
+
+/* #endregion fonts */
+
+/* #region colors */
+
+:root {
+  --voting-indigo: #34cffd;
+}
+
+.indigo {
+  background-color: var(--voting-indigo);
+}
+
+html {
+  width: 100vw;
+  height: 100vh;
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#22345a+0,4565a7+100 */
+  background: #22345a; /* Old browsers */
+  background: -moz-linear-gradient(
+    top,
+    #22345a 0%,
+    #4565a7 100%
+  ); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    top,
+    #22345a 0%,
+    #4565a7 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    #22345a 0%,
+    #4565a7 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#22345a', endColorstr='#4565a7',GradientType=0 ); /* IE6-9 */
+
+  overflow: hidden;
+}
+
+/* #endregion colors */
+
+/* #region scrollbar */
+
+/* custom scrollbar below works only in Chrome as Firefox or IE/Edge does not support it */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+:hover > ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: gray;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+/* #endregion scrollbar */

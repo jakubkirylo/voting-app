@@ -1,3 +1,81 @@
-<p>vote works!</p>
-Voters: {{ (voters$ | async) }}
-Candidates: {{ candidates$ | async }}
+<div class="vote-container">
+  <div class="vote-content">
+    <h1>Vote!</h1>
+    <div class="display-flex">
+      <mat-form-field color="primary">
+        <mat-label>I am</mat-label>
+        <mat-select #voter="matSelect">
+          <mat-option *ngFor="let voter of voters$ | async" [value]="voter">
+            {{ voter.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field
+        #test="matFormField"
+        color="primary"
+        class="vote-form-field"
+      >
+        <mat-label>I vote for</mat-label>
+        <mat-select #candidate="matSelect">
+          <mat-option
+            *ngFor="let candidate of candidates$ | async"
+            [value]="candidate"
+          >
+            {{ candidate.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button
+        mat-flat-button
+        color="primary"
+        class="vote-submit-btn"
+        [disabled]="!(isDirty$ | async)"
+        (click)="submitVote()"
+      >
+        VOTE!
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 
+<div class="item-property">
+  <mat-form-field color="accent">
+      <mat-select
+          [value]="
+              localImportProfile.material.originId ??
+              localImportProfile.material.id
+          "
+          [placeholder]="
+              tEngine.get(
+                  'ImportProfiles_MaterialName'
+              )
+          "
+          (valueChange)="
+              updateProfileMaterial($event)
+          "
+      >
+          <mat-option
+              *ngFor="
+                  let material of materials$ | async
+              "
+              [value]="material.id"
+          >
+              {{ material.name }}
+          </mat-option>
+          <mat-option
+              class="display-none"
+              *ngFor="
+                  let material of [
+                      localImportProfile.material
+                  ]
+              "
+              [value]="
+                  material.originId ?? material.id
+              "
+          >
+              {{ material.name }}
+          </mat-option>
+      </mat-select>
+  </mat-form-field>
+</div> -->

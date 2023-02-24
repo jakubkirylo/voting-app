@@ -1,0 +1,45 @@
+<div class="manage-container">
+  <div class="manage-content">
+    <div class="voters-container">
+      <div class="voters-actions">
+        <button mat-mini-fab color="primary" (click)="addNewVoterDialog()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div class="voters-header">
+        <div class="voters-table-columns columns-header">
+          <div class="column-header">Name</div>
+          <div class="column-header">Has voted</div>
+        </div>
+      </div>
+
+      <div class="voters-table">
+        <div
+          class="voters-row"
+          *ngFor="let voter of voters$ | async; let i = index"
+        >
+          <div class="voters-table-columns">
+            <div class="voters-row-text voters-alias">{{ voter.name }}</div>
+            <div class="voters-row-text">
+              {{ voter.hasVoted ? "Yes" : "No" }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="candidates-container">
+        <div class="candidates-content">
+          <!-- <div *ngFor="let candidate of candidates$ | async">
+              {{ candidate.id }}
+              {{ candidate.name }}
+              {{ candidate.votes }}
+            </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #addVoter>
+  <app-add-voter></app-add-voter>
+</ng-template>

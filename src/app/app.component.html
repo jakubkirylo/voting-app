@@ -1,1 +1,16 @@
-<router-outlet></router-outlet>
+<div class="app-container">
+  <p>
+    <mat-toolbar class="app-header">
+      <button mat-icon-button class="example-icon">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Voting app</span>
+      <span class="nav-spacer"></span>
+    </mat-toolbar>
+  </p>
+
+  <div class="app-content">
+    <router-outlet></router-outlet>
+  </div>
+  <app-vote></app-vote>
+</div>

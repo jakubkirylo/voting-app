@@ -5,12 +5,18 @@ import {
   CandidatesActionTypes,
 } from '../actions/candidates.actions';
 
-export interface State extends EntityState<Candidate> {}
+export interface State {
+  candidates: EntityState<Candidate>;
+  loading: boolean;
+}
 const adapter: EntityAdapter<Candidate> = createEntityAdapter<Candidate>();
-const emptyState: State = adapter.getInitialState({});
+const emptyState: State = {
+  candidates: adapter.getInitialState({}),
+  loading: false,
+};
 export const initialState: State = { ...emptyState };
 
-export function reducer(
+export function candidateReducer(
   state: State = initialState,
   action: CandidatesActions
 ): State {
@@ -18,11 +24,17 @@ export function reducer(
     case CandidatesActionTypes.LoadCandidatesRequested: {
       return {
         ...state,
+        loading: true,
       };
     }
     case CandidatesActionTypes.LoadCandidatesSucceeded: {
       return {
         ...state,
+        candidates: adapter.addMany(
+          action.payload.candidates,
+          state.candidates
+        ),
+        loading: false,
       };
     }
     default: {
@@ -30,3 +42,5 @@ export function reducer(
     }
   }
 }
+
+export const { selectAll, selectEntities } = adapter.getSelectors();
