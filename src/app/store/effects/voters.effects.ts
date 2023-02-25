@@ -50,7 +50,11 @@ export class VotersEffects {
           voter.id ? { ...voter } : max
         );
 
-        return of({ id: lastVoter.id + 1, name: action.payload.name }).pipe(
+        return of({
+          id: lastVoter.id + 1,
+          name: action.payload.name,
+          hasVoted: false,
+        }).pipe(
           map((voter) => ({
             type: VotersActionTypes.AddVoterSucceeded,
             payload: { voter },

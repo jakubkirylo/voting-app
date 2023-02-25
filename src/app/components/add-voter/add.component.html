@@ -1,0 +1,12 @@
+<div class="add-container">
+  <div class="add">
+    <div class="add-header"><h1>Add new person</h1></div>
+    <!-- TODO: use form so component can listen to changes and disable/enable Add button -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Name</mat-label>
+      <input matInput #nameInput placeholder="Ex. John Kowalski" />
+    </mat-form-field>
+    <!-- TODO: verification if input is dirty -->
+    <button mat-flat-button color="primary" (click)="add()">Add</button>
+  </div>
+</div>

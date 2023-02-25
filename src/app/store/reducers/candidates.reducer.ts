@@ -4,6 +4,7 @@ import {
   CandidatesActions,
   CandidatesActionTypes,
 } from '../actions/candidates.actions';
+import { VoteActions, VoteActionTypes } from '../actions/vote-actions';
 
 export interface State {
   candidates: EntityState<Candidate>;
@@ -18,7 +19,7 @@ export const initialState: State = { ...emptyState };
 
 export function candidateReducer(
   state: State = initialState,
-  action: CandidatesActions
+  action: CandidatesActions | VoteActions
 ): State {
   switch (action.type) {
     case CandidatesActionTypes.LoadCandidatesRequested: {
@@ -34,7 +35,38 @@ export function candidateReducer(
           action.payload.candidates,
           state.candidates
         ),
-        loading: false,
+        loading:
+          action.type === CandidatesActionTypes.LoadCandidatesSucceeded
+            ? false
+            : state.loading,
+      };
+    }
+    case CandidatesActionTypes.AddCandidateRequested: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case CandidatesActionTypes.AddCandidateSucceeded: {
+      return {
+        ...state,
+        candidates: adapter.addOne(action.payload.candidate, state.candidates),
+        loading:
+          action.type === CandidatesActionTypes.AddCandidateSucceeded
+            ? false
+            : state.loading,
+      };
+    }
+    case VoteActionTypes.VoteSucceeded: {
+      return {
+        ...state,
+        candidates: adapter.updateOne(
+          {
+            id: action.payload.candidate.id,
+            changes: action.payload.candidate,
+          },
+          state.candidates
+        ),
       };
     }
     default: {

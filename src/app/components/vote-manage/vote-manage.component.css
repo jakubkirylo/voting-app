@@ -1,0 +1,13 @@
+.manage-container {
+  display: grid;
+  grid-template-columns: 20px 1fr 20px;
+  grid-template-rows: 1fr;
+  grid-template-areas: ". manage-content .";
+}
+
+.manage-content {
+  grid-area: manage-content;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}

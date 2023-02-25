@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { VoteManageComponent } from './vote-manage/vote-manage/vote-manage.component';
-import { VoteComponent } from './vote/vote.component';
+import { VoteManageComponent } from './components/vote-manage/vote-manage.component';
+import { VoteComponent } from './components/vote/vote.component';
 
 const routes: Routes = [
   {

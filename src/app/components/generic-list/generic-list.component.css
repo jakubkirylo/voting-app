@@ -1,0 +1,55 @@
+.generic-container {
+  grid-area: voters-container;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "generic-actions"
+    "generic-header"
+    "generic-table";
+}
+
+.generic-actions {
+  grid-area: generic-actions;
+  justify-self: end;
+}
+
+.generic-header {
+  grid-area: generic-header;
+}
+
+.generic-table {
+  grid-area: generic-table;
+  overflow: auto;
+}
+
+.generic-table-columns {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 5fr 1fr;
+  align-items: center;
+}
+
+.columns-header {
+  padding: 15px;
+}
+
+.column-header {
+  color: #ffffff;
+}
+
+.generic-row-text {
+  color: black;
+}
+
+.generic-row {
+  background-color: white;
+  margin: 5px 0px;
+  border-width: 1px;
+  border-radius: 10px;
+  padding: 15px;
+  color: black;
+}
+
+.generic-row:hover .generic-alias {
+  color: var(--voting-indigo);
+}

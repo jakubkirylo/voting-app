@@ -18,7 +18,7 @@ export class LoadCandidatesSucceeded {
 
 export class AddCandidateRequested {
   readonly type = CandidatesActionTypes.AddCandidateRequested;
-  constructor(public payload: { candidate: Candidate }) {}
+  constructor(public payload: { name: string }) {}
 }
 
 export class AddCandidateSucceeded {

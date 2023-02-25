@@ -1,13 +1,13 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import * as fromRoot from '../store/reducers';
-import { Candidate } from '../models/candidate';
-import { Voter } from '../models/voter';
+import * as fromRoot from '../../store/reducers';
+import { Candidate } from '../../models/candidate';
+import { Voter } from '../../models/voter';
 import { combineLatest, map, Observable } from 'rxjs';
-import * as fromVoters from '../store/reducers/voters.reducer';
-import * as fromCandidates from '../store/reducers/candidates.reducer';
+import * as fromVoters from '../../store/reducers/voters.reducer';
+import * as fromCandidates from '../../store/reducers/candidates.reducer';
 import { MatSelect } from '@angular/material/select';
-import { VoteRequested } from '../store/actions/vote-actions';
+import { VoteRequested } from '../../store/actions/vote-actions';
 
 @Component({
   selector: 'app-vote',

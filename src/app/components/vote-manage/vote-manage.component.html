@@ -1,0 +1,16 @@
+<div class="manage-container">
+  <div class="manage-content">
+    <div>
+      <app-generic-list [config]="getVotersListDefinition()"></app-generic-list>
+    </div>
+    <div>
+      <app-generic-list
+        [config]="getCandidatesListDefinition()"
+      ></app-generic-list>
+    </div>
+  </div>
+</div>
+
+<ng-template #add>
+  <app-add [type]="addType" (addSubmitted)="addSubmitted()"></app-add>
+</ng-template>

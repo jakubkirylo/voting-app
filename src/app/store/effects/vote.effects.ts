@@ -14,18 +14,11 @@ export class VoteEffects {
         // response from server
         of(false).pipe(
           map(() => {
-            console.warn('vote requested effect');
-
             const voter = { ...result.payload.voter, hasVoted: true };
-            console.warn('voter', voter);
-
             const candidate = {
               ...result.payload.candidate,
               votes: result.payload.candidate.votes + 1,
             };
-
-            console.warn('candidate', candidate);
-
             return {
               type: VoteActionTypes.VoteSucceeded,
               payload: {

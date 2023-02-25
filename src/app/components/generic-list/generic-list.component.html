@@ -1,0 +1,35 @@
+<div class="generic-container">
+  <div class="generic-actions">
+    <button mat-mini-fab color="primary" (click)="config.add.action()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <div class="generic-header">
+    <div class="generic-table-columns columns-header">
+      <ng-container *ngFor="let column of config.columns">
+        <div class="column-header">
+          {{ column.label }}
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="generic-table">
+    <div
+      class="generic-row"
+      *ngFor="let row of config.sourceData$ | async; let i = index"
+    >
+      <div class="generic-table-columns">
+        <!-- TODO this part needs extended column definition to be more flexible -->
+        <ng-container *ngFor="let column of config.columns">
+          <div *ngIf="!row.hasVoted" class="generic-row-text generic-alias">
+            {{ row[column.name] }}
+          </div>
+          <div *ngIf="row.hasVoted" class="generic-row-text generic-alias">
+            {{ row[column.name] ? "Yes" : "No" }}
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
