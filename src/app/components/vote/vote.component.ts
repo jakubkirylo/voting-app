@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import * as fromRoot from '../../store/reducers';
 import { Candidate } from '../../models/candidate';
 import { Voter } from '../../models/voter';
-import { combineLatest, map, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable, of } from 'rxjs';
 import * as fromVoters from '../../store/reducers/voters.reducer';
 import * as fromCandidates from '../../store/reducers/candidates.reducer';
 import { MatSelect } from '@angular/material/select';
@@ -23,7 +23,9 @@ export class VoteComponent implements OnInit, AfterViewInit {
 
   public voterSelected$: Observable<boolean>;
   public candidateSelected$: Observable<boolean>;
-  public isDirty$: Observable<boolean>;
+
+  private isDirtySubject = new BehaviorSubject(false);
+  public isDirty$ = this.isDirtySubject.asObservable();
 
   constructor(private readonly _store: Store<fromRoot.State>) {}
 
@@ -40,18 +42,23 @@ export class VoteComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.voterSelected$ = this.voterSelect.optionSelectionChanges.pipe(
+    this.voterSelected$ = this.voterSelect.valueChange.pipe(
       map((voter) => !!voter)
     );
 
-    this.candidateSelected$ = this.candidateSelect.optionSelectionChanges.pipe(
+    this.candidateSelected$ = this.candidateSelect.valueChange.pipe(
       map((candidate) => !!candidate)
     );
 
-    this.isDirty$ = combineLatest([
-      this.voterSelected$,
-      this.candidateSelected$,
-    ]).pipe(map(([voter, candidate]) => voter && candidate));
+    combineLatest([this.voterSelected$, this.candidateSelected$])
+      .pipe(
+        map(([voter, candidate]) =>
+          this.isDirtySubject.next(voter && candidate)
+        )
+      )
+      .subscribe();
+
+    this.isDirty$.subscribe((d) => console.warn('isDirty: ', d));
   }
 
   public submitVote(): void {

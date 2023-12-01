@@ -54,6 +54,7 @@ export function voterReducer(
       };
     }
     case VoteActionTypes.VoteSucceeded: {
+      console.warn('action.payload.voter',action.payload.voter);
       return {
         ...state,
         voters: adapter.updateOne(

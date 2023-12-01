@@ -20,13 +20,14 @@
       *ngFor="let row of config.sourceData$ | async; let i = index"
     >
       <div class="generic-table-columns">
-        <!-- TODO this part needs extended column definition to be more flexible -->
         <ng-container *ngFor="let column of config.columns">
-          <div *ngIf="!row.hasVoted" class="generic-row-text generic-alias">
-            {{ row[column.name] }}
-          </div>
-          <div *ngIf="row.hasVoted" class="generic-row-text generic-alias">
-            {{ row[column.name] ? "Yes" : "No" }}
+          <div class="generic-row-text generic-alias">
+            <ng-container *ngIf="column.name !== 'hasVoted'">
+              {{ row[column.name] }}</ng-container
+            >
+            <ng-container *ngIf="column.name === 'hasVoted'">
+              {{ row[column.name] ? "Yes" : "No" }}
+            </ng-container>
           </div>
         </ng-container>
       </div>
