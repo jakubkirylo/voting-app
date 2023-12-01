@@ -1,5 +1,15 @@
 # VotingApp
 
+App: https://recruitment-task-2.web.app/
+
+What has been done:
+
+Layout based on CSS grid
+Generic component for displaying and voters / candidates
+Generic component for adding voter / candidate
+Component for voting
+Reactive approach - store (actions, effects, reducers)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.6.
 
 ## Development server
